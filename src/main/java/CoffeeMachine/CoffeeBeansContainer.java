@@ -4,6 +4,9 @@
  */
 package CoffeeMachine;
 
+import CoffeeMachine.Exceptions.OverFlowBenasException;
+import CoffeeMachine.Exceptions.OutOfBeansException;
+
 /**
  *
  * @author user

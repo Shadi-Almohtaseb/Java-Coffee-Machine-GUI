@@ -8,6 +8,7 @@ package CoffeeMachine;
  *
  * @author user
  */
+import CoffeeMachine.Exceptions.OutOfGroundCoffeeException;
 import java.util.Scanner;
 
 public class CoffeeMachine {

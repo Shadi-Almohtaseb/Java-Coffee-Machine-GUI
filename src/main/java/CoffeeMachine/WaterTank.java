@@ -4,6 +4,9 @@
  */
 package CoffeeMachine;
 
+import CoffeeMachine.Exceptions.OverFlowWaterException;
+import CoffeeMachine.Exceptions.OutOfWaterException;
+
 /**
  *
  * @author user

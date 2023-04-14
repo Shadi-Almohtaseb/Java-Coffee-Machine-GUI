@@ -4,6 +4,8 @@
  */
 package CoffeeMachine;
 
+import CoffeeMachine.Exceptions.OverFlowMilkException;
+import CoffeeMachine.Exceptions.OutOfMilkException;
 import javax.swing.JOptionPane;
 
 /**

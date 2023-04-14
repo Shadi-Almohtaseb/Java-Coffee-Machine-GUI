@@ -4,6 +4,7 @@
  */
 package CoffeeMachine;
 
+import CoffeeMachine.Exceptions.OverFlowWasteException;
 import javax.swing.JOptionPane;
 
 /**

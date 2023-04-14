@@ -1,14 +1,14 @@
 
 import CoffeeMachine.CoffeeMachine;
 import CoffeeMachine.Drink;
-import CoffeeMachine.OutOfBeansException;
-import CoffeeMachine.OutOfGroundCoffeeException;
-import CoffeeMachine.OutOfMilkException;
-import CoffeeMachine.OutOfWaterException;
-import CoffeeMachine.OverFlowBenasException;
-import CoffeeMachine.OverFlowMilkException;
-import CoffeeMachine.OverFlowWasteException;
-import CoffeeMachine.OverFlowWaterException;
+import CoffeeMachine.Exceptions.OutOfBeansException;
+import CoffeeMachine.Exceptions.OutOfGroundCoffeeException;
+import CoffeeMachine.Exceptions.OutOfMilkException;
+import CoffeeMachine.Exceptions.OutOfWaterException;
+import CoffeeMachine.Exceptions.OverFlowBenasException;
+import CoffeeMachine.Exceptions.OverFlowMilkException;
+import CoffeeMachine.Exceptions.OverFlowWasteException;
+import CoffeeMachine.Exceptions.OverFlowWaterException;
 import java.awt.HeadlessException;
 //import CoffeeMachine.OutOfWaterException;
 import java.util.ArrayList;
@@ -604,6 +604,14 @@ public class App extends javax.swing.JFrame {
             if ("Latte".equals(coffeeType)) {
                 try {
                     machine.newLatteCoffee(coffeeType, coffeeSize, grindSize);
+                    jGroundBeansFieldActionPerformed(evt);
+                    jBeansFieldActionPerformed(evt);
+                    jWaterFieldActionPerformed(evt);
+                    jMilkFieldActionPerformed(evt);
+                    jWasteFieldActionPerformed(evt);
+                    String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize;
+                    drinkList.add(drink);
+                    display();
                 } catch (OverFlowWasteException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 } catch (OutOfGroundCoffeeException e) {
@@ -611,6 +619,11 @@ public class App extends javax.swing.JFrame {
                 } catch (OutOfMilkException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
+
+                return;
+            }
+            try {
+                machine.newCoffeeCup(coffeeType, coffeeSize, grindSize);
                 jGroundBeansFieldActionPerformed(evt);
                 jBeansFieldActionPerformed(evt);
                 jWaterFieldActionPerformed(evt);
@@ -619,10 +632,6 @@ public class App extends javax.swing.JFrame {
                 String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize;
                 drinkList.add(drink);
                 display();
-                return;
-            }
-            try {
-                machine.newCoffeeCup(coffeeType, coffeeSize, grindSize);
             } catch (OutOfWaterException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(machine.GetWaterCapacity()));
             } catch (OverFlowWasteException e) {
@@ -630,15 +639,6 @@ public class App extends javax.swing.JFrame {
             } catch (OutOfGroundCoffeeException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-            jGroundBeansFieldActionPerformed(evt);
-            jBeansFieldActionPerformed(evt);
-            jWaterFieldActionPerformed(evt);
-            jMilkFieldActionPerformed(evt);
-            jWasteFieldActionPerformed(evt);
-            String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize;
-            drinkList.add(drink);
-            display();
-
         } else {
             JOptionPane.showMessageDialog(null, "Some information is missing");
         }

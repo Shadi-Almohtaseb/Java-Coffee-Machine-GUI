@@ -4,6 +4,8 @@
  */
 package CoffeeMachine;
 
+import CoffeeMachine.Exceptions.OutOfGroundCoffeeException;
+import CoffeeMachine.Exceptions.OutOfBeansException;
 import javax.swing.JOptionPane;
 
 /**
