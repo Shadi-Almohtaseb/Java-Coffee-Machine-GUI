@@ -4,8 +4,6 @@
  */
 package CoffeeMachine;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author user
@@ -21,17 +19,19 @@ public class CoffeeBeansContainer {
         return this.BeansCapacity;
     }
 
-    public void setBeansCapacity(int beansCapacity) {
-        this.BeansCapacity += beansCapacity;
+    public void setBeansCapacity(int beans) {
+        if (this.BeansCapacity + beans <= 250) {
+            this.BeansCapacity += beans;
+        } else {
+             throw new OverFlowBenasException();
+         }
     }
 
     public void updateBeansCapacity(int beansCapacity) {
             if (this.BeansCapacity >= beansCapacity) {
             this.BeansCapacity -= beansCapacity;
         } else {
-                JOptionPane.showMessageDialog(null, """
-               There is not much beans! start fill with some.
-               Your beans container capacity is only: """ + this.BeansCapacity + "  g");
+                throw new OutOfBeansException();
         }
     }
 

@@ -16,8 +16,8 @@ public class LatteCoffee extends Drink {
 
     @Override
     public void makeLatte(CoffeeGrinder grinder, MilkTank milk) {
-        grinder.updateGroundCoffee(10);
         milk.updateMilkCapacity(40);
+        grinder.updateGroundCoffee(10);
     }
 
     @Override

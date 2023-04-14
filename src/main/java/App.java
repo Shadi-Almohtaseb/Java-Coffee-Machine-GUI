@@ -1,6 +1,16 @@
 
 import CoffeeMachine.CoffeeMachine;
 import CoffeeMachine.Drink;
+import CoffeeMachine.OutOfBeansException;
+import CoffeeMachine.OutOfGroundCoffeeException;
+import CoffeeMachine.OutOfMilkException;
+import CoffeeMachine.OutOfWaterException;
+import CoffeeMachine.OverFlowBenasException;
+import CoffeeMachine.OverFlowMilkException;
+import CoffeeMachine.OverFlowWasteException;
+import CoffeeMachine.OverFlowWaterException;
+import java.awt.HeadlessException;
+//import CoffeeMachine.OutOfWaterException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -8,19 +18,18 @@ import javax.swing.JOptionPane;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author user
  */
 public class App extends javax.swing.JFrame {
-    
+
     ArrayList<String> drinkList = new ArrayList<>();
 
     CoffeeMachine machine = new CoffeeMachine();
-    
-    String coffeeType ,coffeeSize,grindSize;
-    int beansToGrind ,beansToAdd,waterToAdd,milkToAdd;
+
+    String coffeeType, coffeeSize, grindSize;
+    int beansToGrind, beansToAdd, waterToAdd, milkToAdd;
 
     /**
      * Creates new form CoffeeMachineJFrame
@@ -578,69 +587,86 @@ public class App extends javax.swing.JFrame {
 
     private void jDoubleShotRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDoubleShotRadioActionPerformed
         // TODO add your handling code here:
-         coffeeSize = evt.getActionCommand().toLowerCase();
+        coffeeSize = evt.getActionCommand().toLowerCase();
     }//GEN-LAST:event_jDoubleShotRadioActionPerformed
 
-      void display(){
-        String [] arr = new String[drinkList.size()];
+    void display() {
+        String[] arr = new String[drinkList.size()];
         for (int i = 0; i < drinkList.size(); i++) {
-            arr[i]= drinkList.get(i);
+            arr[i] = drinkList.get(i);
         }
         jHistoryList.setListData(arr);
     }
-        
+
     private void jMakeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMakeButtonActionPerformed
         // TODO add your handling code here:
         if (grindSize != null && coffeeType != null && coffeeSize != null) {
             if ("Latte".equals(coffeeType)) {
-                machine.newLatteCoffee(coffeeType,coffeeSize,grindSize);
+                try {
+                    machine.newLatteCoffee(coffeeType, coffeeSize, grindSize);
+                } catch (OverFlowWasteException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                } catch (OutOfGroundCoffeeException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                } catch (OutOfMilkException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
                 jGroundBeansFieldActionPerformed(evt);
                 jBeansFieldActionPerformed(evt);
                 jWaterFieldActionPerformed(evt);
                 jMilkFieldActionPerformed(evt);
                 jWasteFieldActionPerformed(evt);
-                String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize  ;
+                String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize;
                 drinkList.add(drink);
                 display();
                 return;
             }
-                machine.newCoffeeCup(coffeeType,coffeeSize,grindSize);
-                jGroundBeansFieldActionPerformed(evt);
-                jBeansFieldActionPerformed(evt);
-                jWaterFieldActionPerformed(evt);
-                jMilkFieldActionPerformed(evt);
-                jWasteFieldActionPerformed(evt);
-                String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize  ;
-                drinkList.add(drink);
-                display();
-        }else{  
-           JOptionPane.showMessageDialog(null, "Some information is missing");
+            try {
+                machine.newCoffeeCup(coffeeType, coffeeSize, grindSize);
+            } catch (OutOfWaterException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(machine.GetWaterCapacity()));
+            } catch (OverFlowWasteException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } catch (OutOfGroundCoffeeException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            jGroundBeansFieldActionPerformed(evt);
+            jBeansFieldActionPerformed(evt);
+            jWaterFieldActionPerformed(evt);
+            jMilkFieldActionPerformed(evt);
+            jWasteFieldActionPerformed(evt);
+            String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize;
+            drinkList.add(drink);
+            display();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Some information is missing");
         }
     }//GEN-LAST:event_jMakeButtonActionPerformed
 
     private void jEspressoRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEspressoRadioActionPerformed
         // TODO add your handling code here:
-        coffeeType =  evt.getActionCommand();
-         jSingleShotRadio.setVisible(true);
+        coffeeType = evt.getActionCommand();
+        jSingleShotRadio.setVisible(true);
     }//GEN-LAST:event_jEspressoRadioActionPerformed
 
     private void jAmericanoRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAmericanoRadioActionPerformed
         // TODO add your handling code here:
-         coffeeType =  evt.getActionCommand();
-          jSingleShotRadio.setVisible(true);
+        coffeeType = evt.getActionCommand();
+        jSingleShotRadio.setVisible(true);
     }//GEN-LAST:event_jAmericanoRadioActionPerformed
 
     private void jLatteRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLatteRadioActionPerformed
         // TODO add your handling code here:
-         coffeeType =  evt.getActionCommand();
-         jDoubleShotRadio.setSelected(true);
-         jSingleShotRadio.setVisible(false);
-         coffeeSize = "double shot";
+        coffeeType = evt.getActionCommand();
+        jDoubleShotRadio.setSelected(true);
+        jSingleShotRadio.setVisible(false);
+        coffeeSize = "double shot";
     }//GEN-LAST:event_jLatteRadioActionPerformed
 
     private void jSingleShotRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSingleShotRadioActionPerformed
         // TODO add your handling code here:
-         coffeeSize = evt.getActionCommand().toLowerCase();
+        coffeeSize = evt.getActionCommand().toLowerCase();
     }//GEN-LAST:event_jSingleShotRadioActionPerformed
 
     private void jSoftRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSoftRadioActionPerformed
@@ -660,7 +686,7 @@ public class App extends javax.swing.JFrame {
 
     private void jBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeansFieldActionPerformed
         // TODO add your handling code here:
-       int beansCapacity = machine.GetBeansCapacity();
+        int beansCapacity = machine.GetBeansCapacity();
         jBeansField.setText(beansCapacity + "");
     }//GEN-LAST:event_jBeansFieldActionPerformed
 
@@ -672,33 +698,29 @@ public class App extends javax.swing.JFrame {
 
     private void jWaterFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jWaterFieldActionPerformed
         // TODO add your handling code here:
-         int WaterCapcity = machine.GetWaterCapacity();
+        int WaterCapcity = machine.GetWaterCapacity();
         jWaterField.setText(WaterCapcity + "");
     }//GEN-LAST:event_jWaterFieldActionPerformed
 
     private void jGrindBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindBeansButtonActionPerformed
         // TODO add your handling code here:
         try {
-        beansToGrind = Integer.parseInt(jGrindField.getText());
-         if ( beansToGrind >= 0 && beansToGrind > machine.GetBeansCapacity()) {
-            JOptionPane.showMessageDialog(null, "You dont have much beans to grind" );
+            beansToGrind = Integer.parseInt(jGrindField.getText());
+            if (beansToGrind < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jGrindField.setText("");
+                return;
+            }
+            machine.grindCoffee(beansToGrind);
+            jBeansFieldActionPerformed(evt);
+            jGroundBeansFieldActionPerformed(evt);
             jGrindField.setText("");
-            return;
-        }
-         if (beansToGrind < 0) {
-               JOptionPane.showMessageDialog(null, "The Value must be positive");
-               jGrindField.setText("");
-               return;
-          }    
-        machine.grindCoffee(beansToGrind);
-        jBeansFieldActionPerformed(evt);
-        jGroundBeansFieldActionPerformed(evt);
-        jGrindField.setText("");
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "The value must be integer");
             jGrindField.setText("");
-         } catch (Exception e) {
-            e.printStackTrace();
+        } catch (OutOfBeansException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            jGrindField.setText("");
         }
     }//GEN-LAST:event_jGrindBeansButtonActionPerformed
 
@@ -706,26 +728,21 @@ public class App extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             beansToAdd = Integer.parseInt(jAddBeansField.getText());
-         if ( beansToAdd >= 0 && beansToAdd + machine.GetBeansCapacity() >250) {
-            JOptionPane.showMessageDialog(null, "The maximum capacity of the tank is: 250" );
-            jAddBeansField.setText("");
-            return;
-        }
-         if (beansToAdd < 0) {
-               JOptionPane.showMessageDialog(null, "The Value must be positive");
-               jAddBeansField.setText("");
-               return;
-          }    
+            if (beansToAdd < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jAddBeansField.setText("");
+                return;
+            }
             machine.SetBeansCapacity(beansToAdd);
             jBeansFieldActionPerformed(evt);
             jAddBeansField.setText("");
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "The value must be integer");
             jAddBeansField.setText("");
-         } catch (Exception e) {
-            e.printStackTrace();
+        } catch (OverFlowBenasException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            jAddBeansField.setText("");
         }
-   
     }//GEN-LAST:event_jAddBeansButtonActionPerformed
 
     private void jGrindFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindFieldActionPerformed
@@ -741,25 +758,23 @@ public class App extends javax.swing.JFrame {
     private void jAddWaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddWaterButtonActionPerformed
         // TODO add your handling code here:
         try {
-        waterToAdd = Integer.parseInt(jAddWaterField.getText());
-         if ( waterToAdd >= 0 && waterToAdd + machine.GetWaterCapacity() >1000) {
-            JOptionPane.showMessageDialog(null, "The maximum capacity of the tank is: 1000" );
+            waterToAdd = Integer.parseInt(jAddWaterField.getText());
+            if (waterToAdd < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jAddWaterField.setText("");
+                return;
+            }
+            machine.SetWaterCapacity(waterToAdd);
+            jWaterFieldActionPerformed(evt);
             jAddWaterField.setText("");
-            return;
-        }
-          if (waterToAdd < 0) {
-               JOptionPane.showMessageDialog(null, "The Value must be positive");
-               jAddWaterField.setText("");
-               return;
-          }    
-        machine.SetWaterCapacity(waterToAdd);
-        jWaterFieldActionPerformed(evt);
-        jAddWaterField.setText("");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "The value must be integer");
             jAddWaterField.setText("");
-         } catch (Exception e) {
-            e.printStackTrace();
+        } catch (OverFlowWaterException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            jAddWaterField.setText("");
+        } catch (HeadlessException e) {
+            System.out.println(e.getMessage());
         }
 
     }//GEN-LAST:event_jAddWaterButtonActionPerformed
@@ -767,27 +782,22 @@ public class App extends javax.swing.JFrame {
     private void jAddMilkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddMilkButtonActionPerformed
         // TODO add your handling code here:
         try {
-        milkToAdd = Integer.parseInt(jAddMilkField.getText());
-         if ( milkToAdd >= 0 && milkToAdd + machine.GetMilkCapacity() >800) {
-            JOptionPane.showMessageDialog(null, "The maximum capacity of the tank is: 800" );
+            milkToAdd = Integer.parseInt(jAddMilkField.getText());
+            if (milkToAdd < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jAddMilkField.setText("");
+                return;
+            }
+            machine.SetMilkCapacity(milkToAdd);
+            jMilkFieldActionPerformed(evt);
             jAddMilkField.setText("");
-            return;
-        }
-          if (milkToAdd < 0) {
-               JOptionPane.showMessageDialog(null, "The Value must be positive");
-               jAddMilkField.setText("");
-               return;
-          }    
-        machine.SetMilkCapacity(milkToAdd);
-        jMilkFieldActionPerformed(evt);
-        jAddMilkField.setText("");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "The value must be integer");
             jAddMilkField.setText("");
-         }  catch (Exception e) {
-             e.printStackTrace();
+        } catch (OverFlowMilkException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            jAddMilkField.setText("");
         }
-        
     }//GEN-LAST:event_jAddMilkButtonActionPerformed
 
     private void jAddWaterFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddWaterFieldActionPerformed

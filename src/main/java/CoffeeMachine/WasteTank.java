@@ -25,11 +25,11 @@ public class WasteTank {
         this.capacity = capacity;
     }
     
-    public void updateWasteCapacity(int waste){
+    public void updateWasteCapacity(int waste) {
          if (this.capacity >= waste) {
             this.capacity -= waste;
         } else {
-             JOptionPane.showMessageDialog(null,"You have to empty your waste tank first to make more coffee");
+             throw new OverFlowWasteException();
         }
     }
 }

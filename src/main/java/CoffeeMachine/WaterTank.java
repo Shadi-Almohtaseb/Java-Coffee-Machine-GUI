@@ -4,9 +4,6 @@
  */
 package CoffeeMachine;
 
-import java.awt.HeadlessException;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author user
@@ -22,17 +19,19 @@ public class WaterTank {
         return WaterCapacity;
     }
 
-    public void setWaterCapacity(int WaterCapacity)  {
-        this.WaterCapacity += WaterCapacity;
+    public void setWaterCapacity(int amountOfWater)  {
+         if (this.WaterCapacity + amountOfWater <= 1000) {
+            this.WaterCapacity += amountOfWater;
+        } else {
+             throw new OverFlowWaterException();
+         }
     }
 
-    public void updatedWaterCapacity(int usedWater)  {
+    public void updatedWaterCapacity(int usedWater)    {
         if (this.WaterCapacity >= usedWater) {
             this.WaterCapacity -= usedWater;
         } else {
-            JOptionPane.showMessageDialog(null, """
-               There is not much water! start fill with some.
-               Your water tank capacity is only: """ + this.WaterCapacity + "  ml");
+            throw new OutOfWaterException();
         }
     }
 

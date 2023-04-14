@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class MilkTank {
+
     private int MilkCapacity;
 
     public MilkTank(int MilkCapacity) {
@@ -21,22 +22,25 @@ public class MilkTank {
         return MilkCapacity;
     }
 
-    public void setMilkCapacity(int MilkCapacity) {
-        this.MilkCapacity += MilkCapacity;
+    public void setMilkCapacity(int MilkToAdd) {
+        if (MilkToAdd + this.MilkCapacity <= 800) {
+            this.MilkCapacity += MilkToAdd;
+        } else {
+            throw new OverFlowMilkException();
+        }
     }
 
     public void updateMilkCapacity(int usedMilk) {
         if (this.MilkCapacity >= usedMilk) {
             this.MilkCapacity -= usedMilk;
         } else {
-            JOptionPane.showMessageDialog(null, """
-               There is not much milk! start fill with some.
-               Your milk tank capacity is only: """ + this.MilkCapacity + "  ml");
+            throw new OutOfMilkException();
         }
     }
 
     public void getInfo() {
         System.out.println("Milk capacity: " + this.MilkCapacity);
+        JOptionPane.showMessageDialog(null, "Milk capacity: " + this.MilkCapacity);
     }
 
 }

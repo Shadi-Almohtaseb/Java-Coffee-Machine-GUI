@@ -17,11 +17,11 @@ public class EspressoCoffee extends Drink {
     @Override
     public void makeCoffee(CoffeeGrinder grinder, WaterTank water) {
         if ((super.getCoffeeType().equals("Espresso")  && super.getCoffeeSize().equals("single shot")) ) {
-            grinder.updateGroundCoffee(7);
             water.updatedWaterCapacity(30);
+            grinder.updateGroundCoffee(7);
         } else if (super.getCoffeeType().equals("Espresso") && super.getCoffeeSize().equals("double shot")) {
-            grinder.updateGroundCoffee(14);
             water.updatedWaterCapacity(60);
+            grinder.updateGroundCoffee(14);
         } else {
             System.out.println("Invalid option!");
         }

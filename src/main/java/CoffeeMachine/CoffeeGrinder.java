@@ -4,14 +4,17 @@
  */
 package CoffeeMachine;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class CoffeeGrinder {
+
     private String GrindSize;
     private int GroundCoffee;
-    private CoffeeBeansContainer beans;
+    private final CoffeeBeansContainer beans;
 
     public CoffeeGrinder(String grindSize, CoffeeBeansContainer beans) {
         this.GrindSize = grindSize;
@@ -19,19 +22,19 @@ public class CoffeeGrinder {
     }
 
     public void setGroundCoffee(int Beans) {
-        this.GroundCoffee += Beans;
-        this.beans.updateBeansCapacity(Beans);
+        if (Beans <= beans.getBeansCapacity()) {
+            this.GroundCoffee += Beans;
+            this.beans.updateBeansCapacity(Beans);
+        } else {
+            throw new OutOfBeansException();
+        }
     }
 
     public void updateGroundCoffee(int usedPowder) {
-        if (usedPowder < 0) {
-            System.out.println("The value must be positive");
-            // throw new OutOfWaterException();
-        } else if (usedPowder <= this.GroundCoffee) {
+        if (usedPowder <= this.GroundCoffee) {
             this.GroundCoffee -= usedPowder;
         } else {
-            System.out.println("\n\nThere is not much Ground beans!");
-            System.out.println("You have only: " + this.GroundCoffee + " gram of Ground beans");
+            throw new OutOfGroundCoffeeException();
         }
     }
 
@@ -48,7 +51,8 @@ public class CoffeeGrinder {
     }
 
     public void getInfo() {
-        System.out.println("Grind size: " + this.GrindSize + "\nGround Coffee Powder: " + this.GroundCoffee
+        JOptionPane.showMessageDialog(null,
+                "Grind size: " + this.GrindSize + "\nGround Coffee Powder: " + this.GroundCoffee
                 + "\nBeans: " + this.beans.getBeansCapacity());
     }
 

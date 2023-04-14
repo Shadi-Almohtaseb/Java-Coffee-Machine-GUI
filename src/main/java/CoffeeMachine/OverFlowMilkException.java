@@ -8,10 +8,9 @@ package CoffeeMachine;
  *
  * @author user
  */
-public class OutOfWaterException extends RuntimeException{
-    public String getMessage(int water) {
-        return """
-               There is no much water! start fill with some.
-               Your water tank capacity is only: """ + water + "  ml";
+public class OverFlowMilkException  extends RuntimeException{
+      @Override
+    public String getMessage() {
+        return "The maximum capacity of the milk tank is: 800 ml";
     }
 }
