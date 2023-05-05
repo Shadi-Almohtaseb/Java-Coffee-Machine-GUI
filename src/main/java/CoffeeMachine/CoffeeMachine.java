@@ -9,19 +9,34 @@ package CoffeeMachine;
  * @author user
  */
 import CoffeeMachine.Exceptions.OutOfGroundCoffeeException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CoffeeMachine {
 
     private final WaterTank water = new WaterTank(1000);
     private final MilkTank milk = new MilkTank(800);
-    private final CoffeeBeansContainer beans = new CoffeeBeansContainer(250, 0);
+    private final CoffeeBeansContainer beans = new CoffeeBeansContainer(100, 100);
     private final CoffeeGrinder grinder = new CoffeeGrinder("soft", beans);
     private final WasteTank waste = new WasteTank(20);
 
-    public void newLatteCoffee(String coffeeType, String coffeeSize, String GrindSize) {
+    private static DecimalFormat df = new DecimalFormat("#.##");
+
+    public void newLatteCoffee(int arabica, String coffeeType, String coffeeSize, String GrindSize) {
+        double usedArabica, usedRobusta;
+
+        usedArabica = ((arabica * 10.0) / 100.0);
+        usedRobusta = (10.0 - usedArabica);
+
+        df.format(usedArabica);
+        df.format(usedRobusta);
+
+        grinder.updateArabicaGroundCoffee(usedArabica);
+        grinder.updateRobustaGroundCoffee(usedRobusta);
+
         Drink latte = new LatteCoffee(coffeeType, coffeeSize);
-        if (grinder.getGroundCoffee() <= 10) {
+
+        if (grinder.getArabicaGroundCoffee() <= usedArabica || grinder.getRobustaGroundCoffee() <= usedRobusta) {
             throw new OutOfGroundCoffeeException();
         } else {
             latte.makeLatte(grinder, milk);
@@ -30,51 +45,90 @@ public class CoffeeMachine {
         }
     }
 
-    public void newCoffeeCup(String coffeeType, String coffeeSize, String grindSize) {
-        if (grinder.getGroundCoffee() <= 7 && coffeeSize.equals("Single shot") || grinder.getGroundCoffee() <= 14 && coffeeSize.equals("Double shot")) {
+    public void newCoffeeCup(int arabica, String coffeeType, String coffeeSize, String grindSize) {
+        double usedArabica = 0, usedRobusta = 0;
+//        double caffeine;
+        if ("single shot".equals(coffeeSize)) {
+            usedArabica = (arabica * 7.0) / 100.0;
+            usedRobusta = 7 - usedArabica;
+            
+            df.format(usedArabica);
+            df.format(usedRobusta);
+
+//            caffeine = usedArabica
+            grinder.updateArabicaGroundCoffee(usedArabica);
+            grinder.updateRobustaGroundCoffee(usedRobusta);
+
+        } else if ("double shot".equals(coffeeSize)) {
+            usedArabica = (arabica * 14.0) / 100.0;
+            usedRobusta = 14 - usedArabica;
+
+            df.format(usedArabica);
+            df.format(usedRobusta);
+
+            grinder.updateArabicaGroundCoffee(usedArabica);
+            grinder.updateRobustaGroundCoffee(usedRobusta);
+        }
+
+        if (grinder.getArabicaGroundCoffee() <= usedArabica || grinder.getRobustaGroundCoffee() <= usedRobusta) {
             throw new OutOfGroundCoffeeException();
         } else {
+
             if (coffeeType.equals("Espresso")) {
                 Drink espresso = new EspressoCoffee(coffeeType, coffeeSize);
-                espresso.makeCoffee(grinder, water);
+                espresso.makeCoffee(water);
                 waste.updateWasteCapacity(1);
                 espresso.getCoffeeInfo(grindSize);
 
             } else if (coffeeType.equals("Americano")) {
                 Drink americano = new AmericanoCoffee(coffeeType, coffeeSize);
-                americano.makeCoffee(grinder, water);
+                americano.makeCoffee(water);
                 waste.updateWasteCapacity(1);
                 americano.getCoffeeInfo(grindSize);
             }
         }
     }
 
-    public void grindCoffee(int Beans) {
-        grinder.setGroundCoffee(Beans);
+    public void grindArabicaCoffee(int Beans) {
+        grinder.setArabicaGroundCoffee(Beans);
+    }
+
+    public void grindRobustaCoffee(int Beans) {
+        grinder.setRobustaGroundCoffee(Beans);
     }
 
     public void addWaterToTheTank() {
-            Scanner input = new Scanner(System.in);
-            int amountOfWater = input.nextInt();
-            water.setWaterCapacity(amountOfWater);
+        Scanner input = new Scanner(System.in);
+        int amountOfWater = input.nextInt();
+        water.setWaterCapacity(amountOfWater);
     }
 
-    public void addBeansToTheContainer() {
-            Scanner input = new Scanner(System.in);
-            int amountOfBeans = input.nextInt();
-            beans.setBeansCapacity(amountOfBeans);
+    public void addArabicaBeansToTheContainer() {
+        Scanner input = new Scanner(System.in);
+        int amountOfBeans = input.nextInt();
+        beans.setArabicaBeansCapacity(amountOfBeans);
     }
 
-    public int GetWaterCapacity() {
-        return water.getWaterCapacity();
+    public void addRobustaBeansToTheContainer() {
+        Scanner input = new Scanner(System.in);
+        int amountOfBeans = input.nextInt();
+        beans.setRobustaBeansCapacity(amountOfBeans);
     }
 
-    public int GetBeansCapacity() {
-        return beans.getBeansCapacity();
+    public int GetArabicaBeansCapacity() {
+        return beans.getArabicaBeansCapacity();
     }
 
-    public int GetGroundPowder() {
-        return grinder.getGroundCoffee();
+    public int GetRobustaBeansCapacity() {
+        return beans.getRobustaBeansCapacity();
+    }
+
+    public double GetArabicaGroundPowder() {
+        return grinder.getArabicaGroundCoffee();
+    }
+
+    public double GetRobustaGroundPowder() {
+        return grinder.getRobustaGroundCoffee();
     }
 
     public int GetMilkCapacity() {
@@ -85,12 +139,20 @@ public class CoffeeMachine {
         return waste.getCapacity();
     }
 
-    public void SetWaterCapacity(int waterToAdd) {
-        water.setWaterCapacity(waterToAdd);
+    public int GetWaterCapacity() {
+        return water.getWaterCapacity();
     }
 
-    public void SetBeansCapacity(int beansToAdd) {
-        beans.setBeansCapacity(beansToAdd);
+    public void SetArabicaBeansCapacity(int arabicaBeansToAdd) {
+        beans.setArabicaBeansCapacity(arabicaBeansToAdd);
+    }
+
+    public void SetRobustaBeansCapacity(int robustaBeansToAdd) {
+        beans.setRobustaBeansCapacity(robustaBeansToAdd);
+    }
+
+    public void SetWaterCapacity(int waterToAdd) {
+        water.setWaterCapacity(waterToAdd);
     }
 
     public void SetMilkCapacity(int milkToAdd) {

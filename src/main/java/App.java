@@ -1,6 +1,4 @@
-
 import CoffeeMachine.CoffeeMachine;
-import CoffeeMachine.Drink;
 import CoffeeMachine.Exceptions.OutOfBeansException;
 import CoffeeMachine.Exceptions.OutOfGroundCoffeeException;
 import CoffeeMachine.Exceptions.OutOfMilkException;
@@ -10,6 +8,7 @@ import CoffeeMachine.Exceptions.OverFlowMilkException;
 import CoffeeMachine.Exceptions.OverFlowWasteException;
 import CoffeeMachine.Exceptions.OverFlowWaterException;
 import java.awt.HeadlessException;
+import java.text.DecimalFormat;
 //import CoffeeMachine.OutOfWaterException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -23,13 +22,14 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class App extends javax.swing.JFrame {
-
+    
+     private static DecimalFormat df = new DecimalFormat("#.##");
     ArrayList<String> drinkList = new ArrayList<>();
 
     CoffeeMachine machine = new CoffeeMachine();
 
-    String coffeeType, coffeeSize, grindSize;
-    int beansToGrind, beansToAdd, waterToAdd, milkToAdd;
+    String coffeeType, coffeeSize, grindSize, beansType;
+    int ArabicaBeansToGrind, ArabicaBeansToAdd, RobustaBeansToGrind, RobustaBeansToAdd, waterToAdd, milkToAdd, arabica, robusta;
 
     /**
      * Creates new form CoffeeMachineJFrame
@@ -66,9 +66,9 @@ public class App extends javax.swing.JFrame {
         jMakeButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jBeansField = new javax.swing.JTextField();
+        jArabicaBeansField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jGroundBeansField = new javax.swing.JTextField();
+        jArabicaGroundBeansField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jWaterField = new javax.swing.JTextField();
         jMilkField = new javax.swing.JTextField();
@@ -76,18 +76,33 @@ public class App extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jRobustaBeansField = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jRobustaGroundBeansField = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        jAddBeansField = new javax.swing.JTextField();
-        jAddBeansButton = new javax.swing.JButton();
-        jGrindBeansButton = new javax.swing.JButton();
-        jGrindField = new javax.swing.JTextField();
+        jAddArabicaBeansField = new javax.swing.JTextField();
+        jAddArabicaBeansButton = new javax.swing.JButton();
+        jGrindArabicaBeansButton = new javax.swing.JButton();
+        jGrindArabicaField = new javax.swing.JTextField();
         jAddWaterField = new javax.swing.JTextField();
         jAddWaterButton = new javax.swing.JButton();
         jAddMilkButton = new javax.swing.JButton();
         jAddMilkField = new javax.swing.JTextField();
+        jAddRobustaBeansButton = new javax.swing.JButton();
+        jAddRobustaBeansField = new javax.swing.JTextField();
+        jGrindRobustaBeansButton = new javax.swing.JButton();
+        jGrindRobustaField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jEmptyButton = new javax.swing.JButton();
         jWasteField = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jNormalRadio1 = new javax.swing.JRadioButton();
+        jArabicaSlider = new javax.swing.JSlider();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jRobustaSlider = new javax.swing.JSlider();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jHistoryList = new javax.swing.JList<>();
@@ -196,26 +211,26 @@ public class App extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Machine Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Beans Container: (gram)");
+        jLabel1.setText("Arabica Beans: (gram)");
 
-        jBeansField.setEditable(false);
-        jBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jBeansField.setText("250");
-        jBeansField.addActionListener(new java.awt.event.ActionListener() {
+        jArabicaBeansField.setEditable(false);
+        jArabicaBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jArabicaBeansField.setText("100");
+        jArabicaBeansField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBeansFieldActionPerformed(evt);
+                jArabicaBeansFieldActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Ground coffee Beans: (gram)");
+        jLabel5.setText("Arabica Ground Beans: (gram)");
 
-        jGroundBeansField.setEditable(false);
-        jGroundBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jGroundBeansField.setText("0");
-        jGroundBeansField.addActionListener(new java.awt.event.ActionListener() {
+        jArabicaGroundBeansField.setEditable(false);
+        jArabicaGroundBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jArabicaGroundBeansField.setText("0");
+        jArabicaGroundBeansField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jGroundBeansFieldActionPerformed(evt);
+                jArabicaGroundBeansFieldActionPerformed(evt);
             }
         });
 
@@ -243,44 +258,79 @@ public class App extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Milk Tank: (ml)");
 
-        jLabel8.setText("Max: 250g");
+        jLabel8.setText("Max: 100g");
 
         jLabel9.setText("Max: 1000ml");
 
         jLabel10.setText("Max: 800ml");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel14.setText("Robusta Beans: (gram)");
+
+        jRobustaBeansField.setEditable(false);
+        jRobustaBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jRobustaBeansField.setText("100");
+        jRobustaBeansField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRobustaBeansFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Max: 100g");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel16.setText("Robusta Ground Beans: (gram)");
+
+        jRobustaGroundBeansField.setEditable(false);
+        jRobustaGroundBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jRobustaGroundBeansField.setText("0");
+        jRobustaGroundBeansField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRobustaGroundBeansFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30)
+                        .addComponent(jArabicaBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(30, 30, 30)
+                        .addComponent(jRobustaBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(30, 30, 30)
-                                .addComponent(jBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jWaterField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jMilkField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(33, 33, 33)
-                            .addComponent(jGroundBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jWaterField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jMilkField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(35, 35, 35)
+                        .addComponent(jArabicaGroundBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(35, 35, 35)
+                        .addComponent(jRobustaGroundBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,50 +338,59 @@ public class App extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jArabicaBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRobustaBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jGroundBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(jArabicaGroundBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRobustaGroundBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jWaterField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMilkField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(234, 232, 244));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Machine Actions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
 
-        jAddBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jAddArabicaBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jAddBeansButton.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
-        jAddBeansButton.setText("Add Coffee Beans");
-        jAddBeansButton.addActionListener(new java.awt.event.ActionListener() {
+        jAddArabicaBeansButton.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        jAddArabicaBeansButton.setText("Add Arabica Beans");
+        jAddArabicaBeansButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAddBeansButtonActionPerformed(evt);
+                jAddArabicaBeansButtonActionPerformed(evt);
             }
         });
 
-        jGrindBeansButton.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
-        jGrindBeansButton.setText("Grind coffee beans");
-        jGrindBeansButton.addActionListener(new java.awt.event.ActionListener() {
+        jGrindArabicaBeansButton.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        jGrindArabicaBeansButton.setText("Grind Arabica beans");
+        jGrindArabicaBeansButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jGrindBeansButtonActionPerformed(evt);
+                jGrindArabicaBeansButtonActionPerformed(evt);
             }
         });
 
-        jGrindField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jGrindField.addActionListener(new java.awt.event.ActionListener() {
+        jGrindArabicaField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jGrindArabicaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jGrindFieldActionPerformed(evt);
+                jGrindArabicaFieldActionPerformed(evt);
             }
         });
 
@@ -360,54 +419,95 @@ public class App extends javax.swing.JFrame {
 
         jAddMilkField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jAddRobustaBeansButton.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        jAddRobustaBeansButton.setText("Add Robusta Beans");
+        jAddRobustaBeansButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAddRobustaBeansButtonActionPerformed(evt);
+            }
+        });
+
+        jAddRobustaBeansField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jGrindRobustaBeansButton.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        jGrindRobustaBeansButton.setText("Grind Robusta beans");
+        jGrindRobustaBeansButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGrindRobustaBeansButtonActionPerformed(evt);
+            }
+        });
+
+        jGrindRobustaField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jGrindRobustaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGrindRobustaFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jGrindBeansButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jAddWaterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
-                            .addComponent(jAddMilkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAddRobustaBeansButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jAddMilkField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jAddMilkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jAddMilkField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jGrindField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jAddWaterField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jAddBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jAddBeansField)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                                    .addComponent(jGrindRobustaBeansButton, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                    .addComponent(jGrindArabicaBeansButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jAddWaterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jAddArabicaBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(114, 114, 114)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jGrindArabicaField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jAddWaterField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jAddArabicaBeansField))
+                                    .addComponent(jGrindRobustaField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jAddRobustaBeansField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(65, 65, 65))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jAddBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jAddBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(jAddArabicaBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAddArabicaBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jGrindBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jGrindField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(jAddRobustaBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAddRobustaBeansField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jGrindArabicaBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jGrindArabicaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jGrindRobustaBeansButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jGrindRobustaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jAddWaterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAddWaterField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jAddMilkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAddMilkField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jEmptyButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -426,52 +526,110 @@ public class App extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
+        jLabel11.setText("Choose the type of the coffee beans:");
+
+        jNormalRadio1.setFont(new java.awt.Font("Segoe UI Historic", 0, 16)); // NOI18N
+        jNormalRadio1.setText("Normal");
+        jNormalRadio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNormalRadio1ActionPerformed(evt);
+            }
+        });
+
+        jArabicaSlider.setMajorTickSpacing(10);
+        jArabicaSlider.setMinorTickSpacing(10);
+        jArabicaSlider.setPaintLabels(true);
+        jArabicaSlider.setPaintTicks(true);
+        jArabicaSlider.setSnapToTicks(true);
+        jArabicaSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jArabicaSliderStateChanged(evt);
+            }
+        });
+        jArabicaSlider.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jArabicaSliderPropertyChange(evt);
+            }
+        });
+
+        jLabel12.setText("Arabica:");
+
+        jLabel13.setText("Robusta:");
+
+        jRobustaSlider.setMajorTickSpacing(10);
+        jRobustaSlider.setMinorTickSpacing(10);
+        jRobustaSlider.setPaintLabels(true);
+        jRobustaSlider.setPaintTicks(true);
+        jRobustaSlider.setSnapToTicks(true);
+        jRobustaSlider.setEnabled(false);
+        jRobustaSlider.setFocusCycleRoot(true);
+        jRobustaSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRobustaSliderStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(189, Short.MAX_VALUE)
+                .addComponent(jMakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(346, 346, 346)
+                .addComponent(jEmptyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jWasteField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(132, 132, 132))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNormalRadio1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jArabicaSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRobustaSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSingleShotRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDoubleShotRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jEspressoRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jEspressoRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
                                 .addComponent(jAmericanoRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(57, 57, 57)
                                 .addComponent(jLatteRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jSingleShotRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDoubleShotRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jMakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(91, 91, 91)
-                                .addComponent(jEmptyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jWasteField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(51, 51, 51)
                                 .addComponent(jSoftRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRoughRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jMediumRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jRoughRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jMediumRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(122, 122, 122))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jSeparator2)
                 .addContainerGap())
@@ -479,24 +637,43 @@ public class App extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jNormalRadio1)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRobustaSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jArabicaSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel13)))
+                        .addGap(10, 10, 10)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jEspressoRadio)
                     .addComponent(jAmericanoRadio)
-                    .addComponent(jLatteRadio))
-                .addGap(26, 26, 26)
+                    .addComponent(jLatteRadio)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSingleShotRadio)
                     .addComponent(jDoubleShotRadio))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSoftRadio)
                     .addComponent(jRoughRadio)
                     .addComponent(jMediumRadio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jMakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jEmptyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -507,7 +684,7 @@ public class App extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(119, 119, 119))
         );
 
         jTabbedPane1.addTab("Main", jPanel1);
@@ -534,20 +711,20 @@ public class App extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDeleteFromHistoryButton))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jDeleteFromHistoryButton)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jDeleteFromHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("History", jPanel2);
@@ -591,7 +768,7 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jDoubleShotRadioActionPerformed
 
     void display() {
-        String[] arr = new String[drinkList.size()];
+        String [] arr = new String[drinkList.size()];
         for (int i = 0; i < drinkList.size(); i++) {
             arr[i] = drinkList.get(i);
         }
@@ -603,13 +780,15 @@ public class App extends javax.swing.JFrame {
         if (grindSize != null && coffeeType != null && coffeeSize != null) {
             if ("Latte".equals(coffeeType)) {
                 try {
-                    machine.newLatteCoffee(coffeeType, coffeeSize, grindSize);
-                    jGroundBeansFieldActionPerformed(evt);
-                    jBeansFieldActionPerformed(evt);
+                    machine.newLatteCoffee(arabica, coffeeType, coffeeSize, grindSize);
+                    jArabicaGroundBeansFieldActionPerformed(evt);
+                    jArabicaBeansFieldActionPerformed(evt);
+                    jRobustaGroundBeansFieldActionPerformed(evt);
+                    jRobustaBeansFieldActionPerformed(evt);
                     jWaterFieldActionPerformed(evt);
                     jMilkFieldActionPerformed(evt);
                     jWasteFieldActionPerformed(evt);
-                    String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          grind Size: " + grindSize;
+                    String drink = "Coffee Type: " + coffeeType + "         Coffee Size: " + coffeeSize + "          Grind Size: " + grindSize;
                     drinkList.add(drink);
                     display();
                 } catch (OverFlowWasteException e) {
@@ -623,9 +802,11 @@ public class App extends javax.swing.JFrame {
                 return;
             }
             try {
-                machine.newCoffeeCup(coffeeType, coffeeSize, grindSize);
-                jGroundBeansFieldActionPerformed(evt);
-                jBeansFieldActionPerformed(evt);
+                machine.newCoffeeCup(arabica, coffeeType, coffeeSize, grindSize);
+                jArabicaGroundBeansFieldActionPerformed(evt);
+                jArabicaBeansFieldActionPerformed(evt);
+                jRobustaGroundBeansFieldActionPerformed(evt);
+                jRobustaBeansFieldActionPerformed(evt);
                 jWaterFieldActionPerformed(evt);
                 jMilkFieldActionPerformed(evt);
                 jWasteFieldActionPerformed(evt);
@@ -684,17 +865,18 @@ public class App extends javax.swing.JFrame {
         grindSize = evt.getActionCommand();
     }//GEN-LAST:event_jMediumRadioActionPerformed
 
-    private void jBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeansFieldActionPerformed
+    private void jArabicaBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jArabicaBeansFieldActionPerformed
         // TODO add your handling code here:
-        int beansCapacity = machine.GetBeansCapacity();
-        jBeansField.setText(beansCapacity + "");
-    }//GEN-LAST:event_jBeansFieldActionPerformed
+        int ArabicaBeansCapacity = machine.GetArabicaBeansCapacity();
+        jArabicaBeansField.setText(ArabicaBeansCapacity + "");
+    }//GEN-LAST:event_jArabicaBeansFieldActionPerformed
 
-    private void jGroundBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGroundBeansFieldActionPerformed
+    private void jArabicaGroundBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jArabicaGroundBeansFieldActionPerformed
         // TODO add your handling code here:
-        int groundBeans = machine.GetGroundPowder();
-        jGroundBeansField.setText(groundBeans + "");
-    }//GEN-LAST:event_jGroundBeansFieldActionPerformed
+        double ArabicagroundBeans = machine.GetArabicaGroundPowder();
+         String formated = df.format(ArabicagroundBeans);
+        jArabicaGroundBeansField.setText(formated + "");
+    }//GEN-LAST:event_jArabicaGroundBeansFieldActionPerformed
 
     private void jWaterFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jWaterFieldActionPerformed
         // TODO add your handling code here:
@@ -702,52 +884,60 @@ public class App extends javax.swing.JFrame {
         jWaterField.setText(WaterCapcity + "");
     }//GEN-LAST:event_jWaterFieldActionPerformed
 
-    private void jGrindBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindBeansButtonActionPerformed
+    private void jGrindArabicaBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindArabicaBeansButtonActionPerformed
         // TODO add your handling code here:
         try {
-            beansToGrind = Integer.parseInt(jGrindField.getText());
-            if (beansToGrind < 0) {
-                JOptionPane.showMessageDialog(null, "The Value must be positive");
-                jGrindField.setText("");
+            if ("".equals(jGrindArabicaField.getText())) {
+                JOptionPane.showMessageDialog(null, "You have to enter a number value");
                 return;
             }
-            machine.grindCoffee(beansToGrind);
-            jBeansFieldActionPerformed(evt);
-            jGroundBeansFieldActionPerformed(evt);
-            jGrindField.setText("");
+            ArabicaBeansToGrind = Integer.parseInt(jGrindArabicaField.getText());
+            if (ArabicaBeansToGrind < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jGrindArabicaField.setText("");
+                return;
+            }
+            machine.grindArabicaCoffee(ArabicaBeansToGrind);
+            jArabicaBeansFieldActionPerformed(evt);
+            jArabicaGroundBeansFieldActionPerformed(evt);
+            jGrindArabicaField.setText("");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "The value must be integer");
-            jGrindField.setText("");
+            jGrindArabicaField.setText("");
         } catch (OutOfBeansException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            jGrindField.setText("");
+            jGrindArabicaField.setText("");
         }
-    }//GEN-LAST:event_jGrindBeansButtonActionPerformed
+    }//GEN-LAST:event_jGrindArabicaBeansButtonActionPerformed
 
-    private void jAddBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddBeansButtonActionPerformed
+    private void jAddArabicaBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddArabicaBeansButtonActionPerformed
         // TODO add your handling code here:
         try {
-            beansToAdd = Integer.parseInt(jAddBeansField.getText());
-            if (beansToAdd < 0) {
-                JOptionPane.showMessageDialog(null, "The Value must be positive");
-                jAddBeansField.setText("");
+            if ("".equals(jAddArabicaBeansField.getText())) {
+                JOptionPane.showMessageDialog(null, "You have to enter a number value");
                 return;
             }
-            machine.SetBeansCapacity(beansToAdd);
-            jBeansFieldActionPerformed(evt);
-            jAddBeansField.setText("");
+            ArabicaBeansToAdd = Integer.parseInt(jAddArabicaBeansField.getText());
+            if (ArabicaBeansToAdd < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jAddArabicaBeansField.setText("");
+                return;
+            }
+            machine.SetArabicaBeansCapacity(ArabicaBeansToAdd);
+            jArabicaBeansFieldActionPerformed(evt);
+            jAddArabicaBeansField.setText("");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "The value must be integer");
-            jAddBeansField.setText("");
+            jAddArabicaBeansField.setText("");
         } catch (OverFlowBenasException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            jAddBeansField.setText("");
+            jAddArabicaBeansField.setText("");
         }
-    }//GEN-LAST:event_jAddBeansButtonActionPerformed
+    }//GEN-LAST:event_jAddArabicaBeansButtonActionPerformed
 
-    private void jGrindFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindFieldActionPerformed
+    private void jGrindArabicaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindArabicaFieldActionPerformed
         // TODO add your handling code here:;
-    }//GEN-LAST:event_jGrindFieldActionPerformed
+    }//GEN-LAST:event_jGrindArabicaFieldActionPerformed
 
     private void jMilkFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMilkFieldActionPerformed
         // TODO add your handling code here:
@@ -758,6 +948,10 @@ public class App extends javax.swing.JFrame {
     private void jAddWaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddWaterButtonActionPerformed
         // TODO add your handling code here:
         try {
+            if ("".equals(jAddWaterField.getText())) {
+                JOptionPane.showMessageDialog(null, "You have to enter a number value");
+                return;
+            }
             waterToAdd = Integer.parseInt(jAddWaterField.getText());
             if (waterToAdd < 0) {
                 JOptionPane.showMessageDialog(null, "The Value must be positive");
@@ -782,6 +976,10 @@ public class App extends javax.swing.JFrame {
     private void jAddMilkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddMilkButtonActionPerformed
         // TODO add your handling code here:
         try {
+            if ("".equals(jAddMilkField.getText())) {
+                JOptionPane.showMessageDialog(null, "You have to enter a number value");
+                return;
+            }
             milkToAdd = Integer.parseInt(jAddMilkField.getText());
             if (milkToAdd < 0) {
                 JOptionPane.showMessageDialog(null, "The Value must be positive");
@@ -829,6 +1027,108 @@ public class App extends javax.swing.JFrame {
         jWasteFieldActionPerformed(evt);
     }//GEN-LAST:event_jEmptyButtonActionPerformed
 
+    private void jNormalRadio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNormalRadio1ActionPerformed
+        // TODjArabicaBeansFieldhandling code here:
+        beansType = jNormalRadio1.getActionCommand();
+        if (beansType.equals("Normal")) {
+            jArabicaSlider.setValue(30);
+            jRobustaSlider.setValue((100 - arabica));
+        }
+        if (jNormalRadio1.isSelected() == false) {
+            beansType = "";
+        }
+    }//GEN-LAST:event_jNormalRadio1ActionPerformed
+
+    private void jArabicaSliderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jArabicaSliderPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jArabicaSliderPropertyChange
+
+    private void jArabicaSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jArabicaSliderStateChanged
+        jRobustaSlider.setValue((100 - arabica));
+        arabica = jArabicaSlider.getValue();
+        if (arabica == 30) {
+            jNormalRadio1.setFocusPainted(true);
+            jNormalRadio1.setSelected(true);
+        } else if ("Normal".equals(beansType)) {
+            jNormalRadio1.setFocusPainted(true);
+            jArabicaSlider.setValue(30);
+        } else {
+            jNormalRadio1.setSelected(false);
+        }
+    }//GEN-LAST:event_jArabicaSliderStateChanged
+
+    private void jRobustaSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRobustaSliderStateChanged
+        robusta = jRobustaSlider.getValue();
+    }//GEN-LAST:event_jRobustaSliderStateChanged
+
+    private void jRobustaBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRobustaBeansFieldActionPerformed
+        // TODO add your handling code here:
+        int RobustaBeansCapacity = machine.GetRobustaBeansCapacity();
+        jRobustaBeansField.setText(RobustaBeansCapacity + "");
+    }//GEN-LAST:event_jRobustaBeansFieldActionPerformed
+
+    private void jRobustaGroundBeansFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRobustaGroundBeansFieldActionPerformed
+        // TODO add your handling code here:
+        double RobustaGroundBeans =  machine.GetRobustaGroundPowder();
+         String formated = df.format(RobustaGroundBeans);
+        jRobustaGroundBeansField.setText(formated + "");
+    }//GEN-LAST:event_jRobustaGroundBeansFieldActionPerformed
+
+    private void jAddRobustaBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddRobustaBeansButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            if ("".equals(jAddRobustaBeansField.getText())) {
+                JOptionPane.showMessageDialog(null, "You have to enter a number value");
+                return;
+            }
+            RobustaBeansToAdd = Integer.parseInt(jAddRobustaBeansField.getText());
+            if (RobustaBeansToAdd < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jAddRobustaBeansField.setText("");
+                return;
+            }
+            machine.SetRobustaBeansCapacity(RobustaBeansToAdd);
+            jRobustaBeansFieldActionPerformed(evt);
+            jAddRobustaBeansField.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "The value must be integer");
+            jAddRobustaBeansField.setText("");
+        } catch (OverFlowBenasException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            jAddRobustaBeansField.setText("");
+        }
+    }//GEN-LAST:event_jAddRobustaBeansButtonActionPerformed
+
+    private void jGrindRobustaBeansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindRobustaBeansButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            if ("".equals(jGrindRobustaField.getText())) {
+                JOptionPane.showMessageDialog(null, "You have to enter a number value");
+                return;
+            }
+            RobustaBeansToGrind = Integer.parseInt(jGrindRobustaField.getText());
+            if (RobustaBeansToGrind < 0) {
+                JOptionPane.showMessageDialog(null, "The Value must be positive");
+                jGrindRobustaField.setText("");
+                return;
+            }
+            machine.grindRobustaCoffee(RobustaBeansToGrind);
+            jRobustaBeansFieldActionPerformed(evt);
+            jRobustaGroundBeansFieldActionPerformed(evt);
+            jGrindRobustaField.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "The value must be integer");
+            jGrindRobustaField.setText("");
+        } catch (OutOfBeansException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            jGrindRobustaField.setText("");
+        }
+    }//GEN-LAST:event_jGrindRobustaBeansButtonActionPerformed
+
+    private void jGrindRobustaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGrindRobustaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jGrindRobustaFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -869,24 +1169,35 @@ public class App extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JButton jAddBeansButton;
-    private javax.swing.JTextField jAddBeansField;
+    private javax.swing.JButton jAddArabicaBeansButton;
+    private javax.swing.JTextField jAddArabicaBeansField;
     private javax.swing.JButton jAddMilkButton;
     private javax.swing.JTextField jAddMilkField;
+    private javax.swing.JButton jAddRobustaBeansButton;
+    private javax.swing.JTextField jAddRobustaBeansField;
     private javax.swing.JButton jAddWaterButton;
     private javax.swing.JTextField jAddWaterField;
     private javax.swing.JRadioButton jAmericanoRadio;
-    private javax.swing.JTextField jBeansField;
+    private javax.swing.JTextField jArabicaBeansField;
+    private javax.swing.JTextField jArabicaGroundBeansField;
+    private javax.swing.JSlider jArabicaSlider;
     private javax.swing.JButton jDeleteFromHistoryButton;
     private javax.swing.JRadioButton jDoubleShotRadio;
     private javax.swing.JButton jEmptyButton;
     private javax.swing.JRadioButton jEspressoRadio;
-    private javax.swing.JButton jGrindBeansButton;
-    private javax.swing.JTextField jGrindField;
-    private javax.swing.JTextField jGroundBeansField;
+    private javax.swing.JButton jGrindArabicaBeansButton;
+    private javax.swing.JTextField jGrindArabicaField;
+    private javax.swing.JButton jGrindRobustaBeansButton;
+    private javax.swing.JTextField jGrindRobustaField;
     private javax.swing.JList<String> jHistoryList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -905,10 +1216,14 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JTextField jMilkField;
+    private javax.swing.JRadioButton jNormalRadio1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jRobustaBeansField;
+    private javax.swing.JTextField jRobustaGroundBeansField;
+    private javax.swing.JSlider jRobustaSlider;
     private javax.swing.JRadioButton jRoughRadio;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;

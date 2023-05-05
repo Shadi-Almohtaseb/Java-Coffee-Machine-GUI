@@ -15,7 +15,8 @@ import javax.swing.JOptionPane;
 public class CoffeeGrinder {
 
     private String GrindSize;
-    private int GroundCoffee;
+    private double ArabicaGroundCoffee;
+    private double RobustaGroundCoffee;
     private final CoffeeBeansContainer beans;
 
     public CoffeeGrinder(String grindSize, CoffeeBeansContainer beans) {
@@ -23,27 +24,50 @@ public class CoffeeGrinder {
         this.beans = beans;
     }
 
-    public void setGroundCoffee(int Beans) {
-        if (Beans <= beans.getBeansCapacity()) {
-            this.GroundCoffee += Beans;
-            this.beans.updateBeansCapacity(Beans);
+    public void setArabicaGroundCoffee(int Beans) {
+        if (Beans <= beans.getArabicaBeansCapacity()) {
+            this.ArabicaGroundCoffee += Beans;
+            this.beans.updateArabicaBeansCapacity(Beans);
+        } else {
+            throw new OutOfBeansException();
+        }
+    }
+    public void setRobustaGroundCoffee(int Beans) {
+        if (Beans <= beans.getRobustaBeansCapacity()) {
+            this.RobustaGroundCoffee += Beans;
+            this.beans.updateRobustaBeansCapacity(Beans);
         } else {
             throw new OutOfBeansException();
         }
     }
 
-    public void updateGroundCoffee(int usedPowder) {
-        if (usedPowder <= this.GroundCoffee) {
-            this.GroundCoffee -= usedPowder;
+    public void updateArabicaGroundCoffee(double usedPowder) {
+        if (usedPowder <= this.ArabicaGroundCoffee) {
+            this.ArabicaGroundCoffee -= usedPowder;
+        } else {
+            throw new OutOfGroundCoffeeException();
+        }
+    }
+    public void updateRobustaGroundCoffee(double usedPowder) {
+        if (usedPowder <= this.RobustaGroundCoffee) {
+            this.RobustaGroundCoffee -= usedPowder;
         } else {
             throw new OutOfGroundCoffeeException();
         }
     }
 
-    public int getGroundCoffee() {
-        return GroundCoffee;
+    public double getArabicaGroundCoffee() {
+        return ArabicaGroundCoffee;
     }
 
+    public double getRobustaGroundCoffee() {
+        return RobustaGroundCoffee;
+    }
+
+    public CoffeeBeansContainer getBeans() {
+        return beans;
+    }
+    
     public String getGrindSize() {
         return GrindSize;
     }
@@ -54,8 +78,8 @@ public class CoffeeGrinder {
 
     public void getInfo() {
         JOptionPane.showMessageDialog(null,
-                "Grind size: " + this.GrindSize + "\nGround Coffee Powder: " + this.GroundCoffee
-                + "\nBeans: " + this.beans.getBeansCapacity());
+                "Grind size: " + this.GrindSize + "\nGround Coffee Powder: " + this.ArabicaGroundCoffee
+                + "\nBeans: " + this.beans.getArabicaBeansCapacity());
     }
 
 }

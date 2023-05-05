@@ -20,7 +20,7 @@ public abstract class Drink {
 
     }
 
-    public void makeCoffee(CoffeeGrinder grinder, WaterTank water) {
+    public void makeCoffee( WaterTank water) {
     }
 
     public void makeLatte(CoffeeGrinder grinder, MilkTank milk) {

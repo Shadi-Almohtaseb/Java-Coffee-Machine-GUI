@@ -14,15 +14,14 @@ public class AmericanoCoffee extends Drink {
         super(coffeeType, CoffeeSize);
     }
 
-
     @Override
-    public void makeCoffee(CoffeeGrinder grinder, WaterTank water) {
+    public void makeCoffee( WaterTank water) {
         if ((super.getCoffeeType().equals("Americano") && super.getCoffeeSize().equals("single shot"))) {
             water.updatedWaterCapacity(170);
-            grinder.updateGroundCoffee(7);
+//            grinder.updateGroundCoffee(7);
         } else if (super.getCoffeeType().equals("Americano") && super.getCoffeeSize().equals("double shot")) {
             water.updatedWaterCapacity(220);
-            grinder.updateGroundCoffee(14);
+//            grinder.updateGroundCoffee(14);
         }
     }
 

@@ -12,33 +12,57 @@ import CoffeeMachine.Exceptions.OutOfBeansException;
  * @author user
  */
 public class CoffeeBeansContainer {
-    private int BeansCapacity;
+//    private int BeansCapacity;
 
-    public CoffeeBeansContainer(int beansCapacity, int grindedPowder) {
-        this.BeansCapacity = beansCapacity;
+    private int ArabicaBeansCapacity;
+    private int RobustaBeansCapacity;
+
+    public CoffeeBeansContainer(int ArabicaBeansCapacity, int RobustaBeansCapacity) {
+        this.ArabicaBeansCapacity = ArabicaBeansCapacity;
+        this.RobustaBeansCapacity = RobustaBeansCapacity;
     }
 
-    public int getBeansCapacity() {
-        return this.BeansCapacity;
-    }
-
-    public void setBeansCapacity(int beans) {
-        if (this.BeansCapacity + beans <= 250) {
-            this.BeansCapacity += beans;
+    public void setArabicaBeansCapacity(int ArabicaBeansCapacity) {
+        if (this.ArabicaBeansCapacity + ArabicaBeansCapacity <= 100) {
+            this.ArabicaBeansCapacity += ArabicaBeansCapacity;
         } else {
-             throw new OverFlowBenasException();
-         }
-    }
-
-    public void updateBeansCapacity(int beansCapacity) {
-            if (this.BeansCapacity >= beansCapacity) {
-            this.BeansCapacity -= beansCapacity;
-        } else {
-                throw new OutOfBeansException();
+            throw new OverFlowBenasException();
         }
     }
 
+    public void setRobustaBeansCapacity(int RobustaBeansCapacity) {
+        if (this.RobustaBeansCapacity + RobustaBeansCapacity <= 100) {
+            this.RobustaBeansCapacity += RobustaBeansCapacity;
+        } else {
+            throw new OverFlowBenasException();
+        }
+    }
+
+    public void updateArabicaBeansCapacity(int beansCapacity) {
+        if (this.ArabicaBeansCapacity >= beansCapacity) {
+            this.ArabicaBeansCapacity -= beansCapacity;
+        } else {
+            throw new OutOfBeansException();
+        }
+    }
+    
+    public void updateRobustaBeansCapacity(int beansCapacity) {
+        if (this.RobustaBeansCapacity >= beansCapacity) {
+            this.RobustaBeansCapacity -= beansCapacity;
+        } else {
+            throw new OutOfBeansException();
+        }
+    }
+
+    public int getArabicaBeansCapacity() {
+        return ArabicaBeansCapacity;
+    }
+
+    public int getRobustaBeansCapacity() {
+        return RobustaBeansCapacity;
+    }
+
     public void getInfo() {
-        System.out.println("beans capacity: " + this.BeansCapacity);
+        System.out.println("Arabica beans capacity: " + this.ArabicaBeansCapacity +" Robusta beans capacity: " + this.RobustaBeansCapacity );
     }
 }

@@ -12,7 +12,7 @@ public class OverFlowBenasException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return "Too much beans! The maximum capacity is 250 gram";
+        return "Too much beans! The maximum capacity is 100 gram";
     }
     
 }
