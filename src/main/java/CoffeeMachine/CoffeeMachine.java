@@ -9,27 +9,37 @@ package CoffeeMachine;
  * @author user
  */
 import CoffeeMachine.Exceptions.OutOfGroundCoffeeException;
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CoffeeMachine {
 
-    private final WaterTank water = new WaterTank(1000);
-    private final MilkTank milk = new MilkTank(800);
-    private final CoffeeBeansContainer beans = new CoffeeBeansContainer(100, 100);
-    private final CoffeeGrinder grinder = new CoffeeGrinder("soft", beans);
-    private final WasteTank waste = new WasteTank(20);
+    private final FileLogger logger;
 
-    private static DecimalFormat df = new DecimalFormat("#.##");
+    private WaterTank water = null;
+    private MilkTank milk = null;
+    private CoffeeBeansContainer beans = null;
+    private CoffeeGrinder grinder = null;
+    private WasteTank waste = null;
 
-    public void newLatteCoffee(int arabica, String coffeeType, String coffeeSize, String GrindSize) {
+    private double caffeine = 0;
+    private String coffeeInfo;
+
+    public CoffeeMachine(FileLogger logger) {
+        this.logger = logger;
+        water = new WaterTank(1000, logger);
+        milk = new MilkTank(800, logger);
+        beans = new CoffeeBeansContainer(100, 100, logger);
+        grinder = new CoffeeGrinder("soft", beans, logger);
+        waste = new WasteTank(20, logger);
+    }
+
+    public void newLatteCoffee(int arabica, String coffeeType, String coffeeSize, String grindSize) {
         double usedArabica, usedRobusta;
 
         usedArabica = ((arabica * 10.0) / 100.0);
         usedRobusta = (10.0 - usedArabica);
 
-        df.format(usedArabica);
-        df.format(usedRobusta);
+        caffeine = (usedArabica * 12) + (usedRobusta * 17);
 
         grinder.updateArabicaGroundCoffee(usedArabica);
         grinder.updateRobustaGroundCoffee(usedRobusta);
@@ -41,21 +51,20 @@ public class CoffeeMachine {
         } else {
             latte.makeLatte(grinder, milk);
             waste.updateWasteCapacity(1);
-            latte.getLatteInfo(GrindSize);
+            toString(latte, grindSize, caffeine, usedArabica, usedRobusta);
+            logger.log("Order coffee: " + latte.getCoffeeInfo(grindSize, caffeine, usedArabica, usedRobusta));
         }
     }
 
     public void newCoffeeCup(int arabica, String coffeeType, String coffeeSize, String grindSize) {
         double usedArabica = 0, usedRobusta = 0;
-//        double caffeine;
         if ("single shot".equals(coffeeSize)) {
+            
             usedArabica = (arabica * 7.0) / 100.0;
             usedRobusta = 7 - usedArabica;
-            
-            df.format(usedArabica);
-            df.format(usedRobusta);
 
-//            caffeine = usedArabica
+            caffeine = (usedArabica * 12) + (usedRobusta * 17);
+
             grinder.updateArabicaGroundCoffee(usedArabica);
             grinder.updateRobustaGroundCoffee(usedRobusta);
 
@@ -63,8 +72,7 @@ public class CoffeeMachine {
             usedArabica = (arabica * 14.0) / 100.0;
             usedRobusta = 14 - usedArabica;
 
-            df.format(usedArabica);
-            df.format(usedRobusta);
+            caffeine = (usedArabica * 12) + (usedRobusta * 17);
 
             grinder.updateArabicaGroundCoffee(usedArabica);
             grinder.updateRobustaGroundCoffee(usedRobusta);
@@ -73,18 +81,19 @@ public class CoffeeMachine {
         if (grinder.getArabicaGroundCoffee() <= usedArabica || grinder.getRobustaGroundCoffee() <= usedRobusta) {
             throw new OutOfGroundCoffeeException();
         } else {
-
             if (coffeeType.equals("Espresso")) {
                 Drink espresso = new EspressoCoffee(coffeeType, coffeeSize);
                 espresso.makeCoffee(water);
                 waste.updateWasteCapacity(1);
-                espresso.getCoffeeInfo(grindSize);
+                toString(espresso, grindSize, caffeine, usedArabica, usedRobusta);
+                logger.log("Order coffee: " + espresso.getCoffeeInfo(grindSize, caffeine, usedArabica, usedRobusta));
 
             } else if (coffeeType.equals("Americano")) {
                 Drink americano = new AmericanoCoffee(coffeeType, coffeeSize);
                 americano.makeCoffee(water);
                 waste.updateWasteCapacity(1);
-                americano.getCoffeeInfo(grindSize);
+                toString(americano, grindSize, caffeine, usedArabica, usedRobusta);
+                logger.log("Order coffee: " + americano.getCoffeeInfo(grindSize, caffeine, usedArabica, usedRobusta));
             }
         }
     }
@@ -115,6 +124,10 @@ public class CoffeeMachine {
         beans.setRobustaBeansCapacity(amountOfBeans);
     }
 
+    public double GetCaffeine() {
+        return caffeine;
+    }
+
     public int GetArabicaBeansCapacity() {
         return beans.getArabicaBeansCapacity();
     }
@@ -141,6 +154,22 @@ public class CoffeeMachine {
 
     public int GetWaterCapacity() {
         return water.getWaterCapacity();
+    }
+
+    /**
+     *
+     * @param drink
+     * @param GrindSize
+     * @param caffeine
+     * @param arabica
+     * @param robusta
+     */
+    public void toString(Drink drink, String GrindSize, double caffeine, double arabica, double robusta) {
+        coffeeInfo = drink.getCoffeeInfo(GrindSize, caffeine, arabica, robusta);
+    }
+
+    public String GetCoffeeInformation() {
+        return coffeeInfo;
     }
 
     public void SetArabicaBeansCapacity(int arabicaBeansToAdd) {

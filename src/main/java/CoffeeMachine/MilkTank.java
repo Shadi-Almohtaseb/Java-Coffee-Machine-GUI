@@ -15,9 +15,11 @@ import javax.swing.JOptionPane;
 public class MilkTank {
 
     private int MilkCapacity;
+    private final FileLogger logger;
 
-    public MilkTank(int MilkCapacity) {
+    public MilkTank(int MilkCapacity, FileLogger logger) {
         this.MilkCapacity = MilkCapacity;
+        this.logger = logger;
     }
 
     public int getMilkCapacity() {
@@ -27,6 +29,7 @@ public class MilkTank {
     public void setMilkCapacity(int MilkToAdd) {
         if (MilkToAdd + this.MilkCapacity <= 800) {
             this.MilkCapacity += MilkToAdd;
+             logger.log("You added: " + MilkToAdd + " ml of Milk");
         } else {
             throw new OverFlowMilkException();
         }
@@ -35,13 +38,13 @@ public class MilkTank {
     public void updateMilkCapacity(int usedMilk) {
         if (this.MilkCapacity >= usedMilk) {
             this.MilkCapacity -= usedMilk;
+             logger.log("You used: " + usedMilk + " ml of Milk");
         } else {
             throw new OutOfMilkException();
         }
     }
 
     public void getInfo() {
-        System.out.println("Milk capacity: " + this.MilkCapacity);
         JOptionPane.showMessageDialog(null, "Milk capacity: " + this.MilkCapacity);
     }
 

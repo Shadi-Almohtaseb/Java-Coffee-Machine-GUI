@@ -25,7 +25,7 @@ public class AmericanoCoffee extends Drink {
         }
     }
 
-    public void getInfo(String GrindSize) {
-        super.getCoffeeInfo(GrindSize);
+    public void getInfo(String GrindSize, double caffeine, double arabica, double robusta) {
+        super.getCoffeeInfo(GrindSize, caffeine, arabica ,robusta);
     }
 }

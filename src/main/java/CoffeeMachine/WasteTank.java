@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class WasteTank {
     private int capacity;
+    private final FileLogger logger;
 
-    public WasteTank(int capacity) {
+    public WasteTank(int capacity, FileLogger logger) {
         this.capacity = capacity;
+        this.logger = logger;
     }
 
     public int getCapacity() {
@@ -24,6 +26,7 @@ public class WasteTank {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+         logger.log("You have cleand the waste tank");
     }
     
     public void updateWasteCapacity(int waste) {

@@ -20,9 +20,7 @@ public class LatteCoffee extends Drink {
 //        grinder.updateGroundCoffee(10);
     }
 
-    @Override
-    public void getLatteInfo(String grindSize) {
-        super.getLatteInfo(grindSize);
+    public void getInfo(String GrindSize, double caffeine, double arabica, double robusta) {
+        super.getCoffeeInfo(GrindSize, caffeine, arabica, robusta); 
     }
-
 }

@@ -14,20 +14,24 @@ import javax.swing.JOptionPane;
  */
 public class CoffeeGrinder {
 
+//    private final FileLogger logger;
     private String GrindSize;
     private double ArabicaGroundCoffee;
     private double RobustaGroundCoffee;
     private final CoffeeBeansContainer beans;
+    private final FileLogger logger;
 
-    public CoffeeGrinder(String grindSize, CoffeeBeansContainer beans) {
+    public CoffeeGrinder(String grindSize, CoffeeBeansContainer beans, FileLogger logger) {
         this.GrindSize = grindSize;
         this.beans = beans;
+        this.logger = logger;
     }
 
     public void setArabicaGroundCoffee(int Beans) {
         if (Beans <= beans.getArabicaBeansCapacity()) {
             this.ArabicaGroundCoffee += Beans;
             this.beans.updateArabicaBeansCapacity(Beans);
+            logger.log(" grind: " + Beans + " gram of Arabica beans");
         } else {
             throw new OutOfBeansException();
         }
@@ -36,6 +40,7 @@ public class CoffeeGrinder {
         if (Beans <= beans.getRobustaBeansCapacity()) {
             this.RobustaGroundCoffee += Beans;
             this.beans.updateRobustaBeansCapacity(Beans);
+            logger.log(" grind: " + Beans + " gram of Roubsta beans");
         } else {
             throw new OutOfBeansException();
         }

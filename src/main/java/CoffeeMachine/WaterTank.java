@@ -13,9 +13,11 @@ import CoffeeMachine.Exceptions.OutOfWaterException;
  */
 public class WaterTank {
     private int WaterCapacity;
+    private final FileLogger logger;
 
-    public WaterTank(int WaterCapacity) {
+    public WaterTank(int WaterCapacity, FileLogger logger) {
         this.WaterCapacity = WaterCapacity;
+        this.logger = logger;
     }
 
     public int getWaterCapacity() {
@@ -25,6 +27,7 @@ public class WaterTank {
     public void setWaterCapacity(int amountOfWater)  {
          if (this.WaterCapacity + amountOfWater <= 1000) {
             this.WaterCapacity += amountOfWater;
+            logger.log("You added: " + amountOfWater + " ml of Water");
         } else {
              throw new OverFlowWaterException();
          }
@@ -33,6 +36,7 @@ public class WaterTank {
     public void updatedWaterCapacity(int usedWater)    {
         if (this.WaterCapacity >= usedWater) {
             this.WaterCapacity -= usedWater;
+            logger.log("You used: " + usedWater + " ml of Water");
         } else {
             throw new OutOfWaterException();
         }
